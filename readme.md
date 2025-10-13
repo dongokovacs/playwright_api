@@ -19,8 +19,15 @@ or if we have package.json only npm i
 
 check: npx playwright test
 
-the api testing playwright framework use
-Design: oop, fluent interface design
+
+## Notes
+
+- The API testing Playwright framework uses:
+	- OOP, fluent interface design
+    - contract testing 
+        - Consumer-driven contract testing
+        - Provider-driven contract testing (schema validation)
+	- **Schema validations use the [ajv](https://ajv.js.org/) package**
 
 Development Approaches to an Apple Pie Recipe
 I focus on user experience and application robustness.

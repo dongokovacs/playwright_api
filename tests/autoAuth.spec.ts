@@ -6,7 +6,7 @@ import { APILogger } from '../utils/logger';
 
 
 
-test.only('Create and delete article', async ({api}) => {
+test('Create and delete article', async ({api}) => {
     const article = {
         title: 'Test Article',
         description: 'This is a test article',
@@ -15,6 +15,7 @@ test.only('Create and delete article', async ({api}) => {
     };
 
     // Create article
+    //try to comment and save it
     const createResponse = await api
         .path('/api/articles')
         //.headers({Authorization: authToken})
