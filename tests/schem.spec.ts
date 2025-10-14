@@ -13,16 +13,13 @@ test.beforeAll(async ({api, config}) => {
 
 });
     
-test.only('GET articles SCHEMA validation', async ({api}) => {
+test.only('GET tags SCHEMA validation', async ({api}) => {
     const response = await api
                               //.url('https://conduit-api.bondaracademy.com/api/articles?limit=10&offset=0')
-                               //.path('/api/tags')
-                              .path('/api/articles')
-                              .params({limit:10, offset:0})
-                              .getRequest(200);
-    expect(response).toHaveProperty('articles');
-    expect(response.articles.length).toEqual(10);
-    await validateSchema('tags', 'GET_tags');
+                            .path('/api/tags')
+                            //.params({limit:10, offset:0})
+                            .getRequest(200);
+    await validateSchema('tags', 'GET_tags',response);
 });
 
 test('GET fluent interface design tags', async ({api}) => {

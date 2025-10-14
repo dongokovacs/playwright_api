@@ -21,7 +21,6 @@ export default defineConfig({
     }
   },
 
-  /* Configure projects for major browsers */
   projects: [
     {
       name: 'api-testing',
