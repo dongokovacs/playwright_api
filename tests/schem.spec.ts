@@ -12,22 +12,32 @@ test.beforeAll(async ({api, config}) => {
   console.log(authToken);
 
 });
-    
-test.only('GET tags SCHEMA validation', async ({api}) => {
+
+//https://transform.tools/json-to-json-schema
+
+
+test('GET tags SCHEMA validation', async ({api}) => {
     const response = await api
-                              //.url('https://conduit-api.bondaracademy.com/api/articles?limit=10&offset=0')
                             .path('/api/tags')
-                            //.params({limit:10, offset:0})
                             .getRequest(200);
-    await validateSchema('tags', 'GET_tags',response);
+    //await validateSchema('tags', 'GET_tags',response);
+    await expect(response).shouldMatchSchema('tags', 'GET_tags');
 });
 
 test('GET fluent interface design tags', async ({api}) => {
     const response = await api
-                              .path('/api/tags')
-                              .getRequest(200);
+                    .path('/api/tags')
+                    .getRequest(200);
     expect(response).toHaveProperty('tags');
+    await expect(response).shouldMatchSchema('tags', 'GET_tags');
 });
+
+ test('GET all articles', async ({ api }) => {
+    const articlesResponse = await api
+                            .path('/api/articles?limit=10&offset=0')
+                            .getRequest(200);
+    await expect(articlesResponse).shouldMatchSchema('articles', 'GET_articles');
+  });
 
 test('Create and delete article', async ({api}) => {
     const article = {
@@ -39,33 +49,30 @@ test('Create and delete article', async ({api}) => {
 
     // Create article
     const createResponse = await api
-        .path('/api/articles')
-        .headers({Authorization: authToken})
-        .body({ article })
-        .postRequest(201);
-    expect(createResponse.article.title).toEqual(article.title);
+                            .path('/api/articles')
+                            .body({ article })
+                            .postRequest(201);
+    await expect(createResponse).shouldMatchSchema('articles', 'POST_articles');
     const slugId = createResponse.article.slug;
     
     // Read first article
     const articleResponse = await api
-        .path('/api/articles')
-        .headers({Authorization: authToken})
-        .params({ limit: 10, offset: 0, author: 'kovacsdani' })
-        .getRequest(200);
+                            .path('/api/articles')
+                            .params({ limit: 10, offset: 0, author: 'kovacsdani' })
+                            .getRequest(200);
     expect(articleResponse.articles[0].title).toEqual(article.title);
 
     // Delete article
     const deleteResponse = await api
-        .path(`/api/articles/${slugId}`)
-        .headers({Authorization: authToken})
-        .deleteRequest(204);
+                            .path(`/api/articles/${slugId}`)
+                            .deleteRequest(204);
 
     // Read first article after delete
     const articleResponse2 = await api
-        .path('/api/articles')
-        .headers({Authorization: authToken})
-        .params({ limit: 10, offset: 0 })
-        .getRequest(200);
+                            .path('/api/articles')
+                            .params({ limit: 10, offset: 0 })
+                            .getRequest(200);
+    await expect(articleResponse2).shouldMatchSchema('articles', 'GET_articles2');
     expect(articleResponse2.articles[0].title).not.toEqual(article.title);
 });
 

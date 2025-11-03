@@ -1,6 +1,6 @@
 import { expect as baseExpect } from '@playwright/test';
 import { APILogger } from './logger';
-//import { validateSchema } from './schema-validator';
+import { validateSchema } from './schema-validator';
 
 //instance of the logger
 let apiLogger: APILogger

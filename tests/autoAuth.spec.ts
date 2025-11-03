@@ -6,47 +6,6 @@ import { APILogger } from '../utils/logger';
 
 
 
-test('Create and delete article', async ({api}) => {
-    const article = {
-        title: 'Test Article',
-        description: 'This is a test article',
-        body: 'This is the body of the test article',
-        tagList: ['test', 'article']
-    };
-
-    // Create article
-    //try to comment and save it
-    const createResponse = await api
-        .path('/api/articles')
-        //.headers({Authorization: authToken})
-        .body({ article })
-        .postRequest(201);
-    expect(createResponse.article.title).toEqual(article.title);
-    const slugId = createResponse.article.slug;
-    
-    // Read first article
-    const articleResponse = await api
-        .path('/api/articles')
-        //.headers({Authorization: authToken})
-        .params({ limit: 10, offset: 0, author: 'kovacsdani' })
-        .getRequest(200);
-    expect(articleResponse.articles[0].title).toEqual(article.title);
-
-    // Delete article
-    const deleteResponse = await api
-        .path(`/api/articles/${slugId}`)
-        //.headers({Authorization: authToken})
-        .deleteRequest(204);
-
-    // Read first article after delete
-    const articleResponse2 = await api
-        .path('/api/articles')
-        //.headers({Authorization: authToken})
-        .params({ limit: 10, offset: 0 })
-        .getRequest(200);
-    expect(articleResponse2.articles[0].title).not.toEqual(article.title);
-});
-
 test('Create update and delete article', async ({api}) => {
     const article = {
         title: 'NEW Test Article',

@@ -4,13 +4,18 @@ import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 const ajv = new Ajv({ allErrors: true, strict: false });
 addFormats(ajv);
+import {createSchema} from 'genson-js';
 
 //const SCHEMA_BASE_PATH = path.resolve(__dirname, '..', 'schemas');
 const SCHEMA_BASE_PATH = './response-schemas';
 
 
-export async function validateSchema(dirName: string, fileName: string, responseBody: object) {
+export async function validateSchema(dirName: string, fileName: string, responseBody: object, createShemaFlag: boolean=false) {
     const schemaPath = path.join(SCHEMA_BASE_PATH, dirName, `${fileName}_schema.json`);
+    console.log(`Validating schema at: ${schemaPath}`);
+    //create schema or not
+    if(createShemaFlag)
+        await generateNewSchema(responseBody, schemaPath);
     const schema = await loadSchema(schemaPath);
     const validate = ajv.compile(schema);
     const valid = validate(responseBody)
@@ -31,5 +36,17 @@ async function loadSchema(schemaPath: string) {
     } catch (error) {
         throw new Error(`Failed to load schema from ${schemaPath}: ${(error as Error).message}`);
     }
+}
+
+async function generateNewSchema(responseBody: object, schemaPath: string) {
+    try {
+            const generatedSchema = createSchema(responseBody);
+            //if no folder create it
+            await fs.mkdir(path.dirname(schemaPath), { recursive: true });
+            await fs.writeFile(schemaPath, JSON.stringify(generatedSchema, null, 4), 'utf-8');
+            console.log(`Schema file created at: ${schemaPath}`);
+        } catch (error) {
+            throw new Error(`Failed to create schema file: ${(error as Error).message}`);
+        }
 }
 

@@ -30,19 +30,6 @@ test.afterAll(async () => {
     expect(tagsResponseJSON).toHaveProperty('tags');
   });
 
-  test('GET all articles', async ({ request }) => {
-    const articlesResponse = await request.get('https://conduit-api.bondaracademy.com/api/articles?limit=10&offset=0', {
-      headers: {
-        Authorization: authToken
-      }
-    });
-    expect(articlesResponse.ok()).toBeTruthy();
-    const articlesResponseJSON = await articlesResponse.json();
-    //console.log(articlesResponseJSON)
-    expect(articlesResponseJSON).toHaveProperty('articles');
-    expect(articlesResponseJSON.articles).not.toEqual(50);
-  });
-
   const newArticleTitle = 'My Articled';
 
   test('Create, delete article', async ({ request }) => {
