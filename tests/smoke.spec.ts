@@ -1,4 +1,3 @@
-
 import { test } from '../utils/fixtures';
 import { expect } from '../utils/custom-expects';
 import { APILogger } from '../utils/logger';
@@ -87,13 +86,18 @@ test('Create update and delete article', async ({api}) => {
         .postRequest(201);
     expect(createResponse.article.title).toEqual(article.title);
     const slugId = createResponse.article.slug;
+    console.log(slugId);
 
     // Update article
     const updateResponse = await api
         .path(`/api/articles/${slugId}`)
         .headers({Authorization: authToken})
         .body({ "article": { "title": "Hello World", "description": "Hello World", "body": "HELLO", "tagList": [] } })
-        .putRequest(200);
+        .putRequest(200)
+
+    expect(updateResponse).toBeDefined();
+    expect(updateResponse).toHaveProperty('article');
+    expect(updateResponse.article.title).toEqual('Hello World');
     const slugIdUpdated = updateResponse.article.slug;
 
     // Read first article

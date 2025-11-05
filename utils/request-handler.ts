@@ -98,7 +98,7 @@ export class RequestHandler{
             });
             this.cleanUpFields()
             const actualStatus = response.status()
-            const responseJSON = await response.json();
+            responseJSON = await response.json();
             this.logger.logResponse(actualStatus, responseJSON)
             expect(actualStatus).toEqual(expectedStatus);
         });
