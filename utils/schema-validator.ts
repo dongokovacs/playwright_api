@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
-const ajv = new Ajv({ allErrors: true, strict: false });
+const ajv = new Ajv({ allErrors: true }); //additional formats
 addFormats(ajv);
 import {createSchema} from 'genson-js';
 
@@ -19,10 +19,11 @@ export async function validateSchema(dirName: string, fileName: string, response
     const schema = await loadSchema(schemaPath);
     const validate = ajv.compile(schema);
     const valid = validate(responseBody)
+    console.log(responseBody);
     if(!valid){
         throw new Error(`Schema validation ${fileName}_schema.json failed:\n` +
             `${JSON.stringify(validate.errors, null, 4)}\n` +
-            //`actual response body: \n` + `${JSON.stringify(responseBody, null, 4)}\n` +
+            `actual response body: \n` + `${JSON.stringify(responseBody, null, 4)}\n` +
             ajv.errorsText(validate.errors)
         );
     }

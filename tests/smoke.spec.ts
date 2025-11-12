@@ -13,11 +13,9 @@ test.beforeAll(async ({api, config}) => {
     
 test('GET fluent interface design ARTICLES', async ({api}) => {
     const response = await api
-                              //.url('https://conduit-api.bondaracademy.com/api/articles?limit=10&offset=0')
-                               //.path('/api/tags')
-                              .path('/api/articles')
-                              .params({limit:10, offset:0})
-                              .getRequest(200);
+                    .path('/api/articles')
+                    .params({limit:10, offset:0})
+                    .getRequest(200);
    //console.log(response);
     expect(response).toHaveProperty('articles');
     expect(response.articles.length).toEqual(10);
