@@ -16,6 +16,9 @@ export async function validateSchema(dirName: string, fileName: string, response
     //create schema or not
     if(createShemaFlag)
         await generateNewSchema(responseBody, schemaPath);
+        fs.mkdir(path.dirname(schemaPath), { recursive: true });
+        fs.writeFile(schemaPath, JSON.stringify(createSchema(responseBody), null, 4), 'utf-8');
+    //load schema
     const schema = await loadSchema(schemaPath);
     const validate = ajv.compile(schema);
     const valid = validate(responseBody)

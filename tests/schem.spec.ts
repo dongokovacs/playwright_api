@@ -32,7 +32,7 @@ test('GET fluent interface design tags', async ({api}) => {
     await expect(response).shouldMatchSchema('tags', 'GET_tags');
 });
 
- test('GET all articles', async ({ api }) => {
+test('GET all articles', async ({ api }) => {
     const articlesResponse = await api
                             .path('/api/articles?limit=10&offset=0')
                             .getRequest(200);
