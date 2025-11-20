@@ -8,7 +8,7 @@ change environment with cmd
 set TEST_ENV=prod && npm run apitest
 */
 const processENV = process.env.TEST_ENV
-const env = processENV || 'prod'
+const env = processENV || 'dev'
 console.log('Test environment is: ' + env)
 
 const config = {

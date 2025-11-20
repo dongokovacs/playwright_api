@@ -10,7 +10,7 @@ import { expect } from '../utils/custom-expects';
 
 ].forEach(({username, usernameErrorMessage}) => {
 
-    test.only(`error message DDT validations for ${username}`, async ({api}) => { 
+    test(`error message DDT validations for ${username}`, async ({api}) => { 
 
         const newUserResponse = await api
                                 .path('/api/users')
