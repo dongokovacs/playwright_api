@@ -10,25 +10,24 @@ import { expect } from '../utils/custom-expects';
 
 ].forEach(({username, usernameErrorMessage}) => {
 
-    test(`error message DDT validations for ${username}`, async ({api}) => { 
+    test.only(`error message DDT validations for ${username}`, async ({api}) => { 
 
-    const newUserResponse = await api
-                            .path('/api/users')
-                            .body({
-                                "user": {
-                                    "email": 'd',
-                                    "password": 'short',
-                                    "username": username
-                                }
-                            })
-                            .clearAuth()
-                            .postRequest(422);
+        const newUserResponse = await api
+                                .path('/api/users')
+                                .body({
+                                    "user": {
+                                        "email": 'd',
+                                        "password": 'short',
+                                        "username": username
+                                    }
+                                })
+                                .clearAuth()
+                                .postRequest(422);
 
-    if(username.length == 3 || username.length == 20) {
-        expect(newUserResponse.errors).not.toHaveProperty('username');
-    }else{
-        expect(newUserResponse.errors.username[0]).shouldEqual(usernameErrorMessage);
-    }
-
+        if(username.length == 3 || username.length == 20) {
+            expect(newUserResponse.errors).not.toHaveProperty('username');
+        }else{
+            expect(newUserResponse.errors.username[0]).shouldEqual(usernameErrorMessage);
+        }
     });
 });
