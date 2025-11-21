@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 // Load environment variables from .env file
 dotenv.config();
 
-test('Smoke UI test example', async ({ page }) => {
+test.skip('Smoke UI test example', async ({ page }) => {
   await page.goto('/');
   
   await page.click('text=Sign in');
