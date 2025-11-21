@@ -1,9 +1,9 @@
 
-import { test } from '../utils/fixtures';
-import { expect } from '../utils/custom-expects';
-import { APILogger } from '../utils/logger';
-import { createToken } from '../helpers/createToken';
-import { validateSchema } from '../utils/schema-validator';
+import { test } from '../../utils/fixtures';
+import { expect } from '../../utils/custom-expects';
+import { APILogger } from '../../utils/logger';
+import { createToken } from '../../helpers/createToken';
+import { validateSchema } from '../../utils/schema-validator';
 
 let authToken: string;
 

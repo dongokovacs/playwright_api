@@ -1,10 +1,10 @@
-import { test } from '../utils/fixtures';
-import { expect } from '../utils/custom-expects';
-import { APILogger } from '../utils/logger';
-import { createToken } from '../helpers/createToken';
-import  articleRequestPayload  from '../request-objects/articles/POST-article.json';
+import { test } from '../../utils/fixtures';
+import { expect } from '../../utils/custom-expects';
+import { APILogger } from '../../utils/logger';
+import { createToken } from '../../helpers/createToken';
+import  articleRequestPayload  from '../../request-objects/articles/POST-article.json';
 import { faker } from '@faker-js/faker';
-import { getRandomArticle } from '../utils/data-generator';
+import { getRandomArticle } from '../../utils/data-generator';
 
 let authToken: string;
 

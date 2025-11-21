@@ -28,8 +28,22 @@ export default defineConfig({
       //dependencies:["smoke-tests"]
     },
     {
+      name: 'ui-testing',
+      testMatch: /.*ui-tests.*/,
+      use: {
+        baseURL: 'https://conduit.bondaracademy.com/',
+        browserName: 'chromium',
+        headless: true,
+        viewport: { width: 1280, height: 720 },
+        ignoreHTTPSErrors: true,
+        video: 'on-first-retry',
+        screenshot: 'on',
+        trace: 'on',
+      },
+    },
+    {
       name: 'smoke-tests',
-      testDir: './tests/smoke-tests',
+      testMatch: './tests/smoke-tests',
     },
   ],
 });

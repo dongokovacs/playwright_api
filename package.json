@@ -4,7 +4,8 @@
   "description": "preinstalls\r 1. install node.js - download",
   "main": "index.js",
   "scripts": {
-    "apitest": "npx playwright test --project=api-testing"
+    "apitest": "npx playwright test --project=api-testing",
+    "uitest": "npx playwright test --project=ui-testing"
   },
   "keywords": [],
   "author": "",

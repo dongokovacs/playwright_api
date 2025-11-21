@@ -1,7 +1,7 @@
 
-import { test } from '../utils/fixtures';
-import { expect } from '../utils/custom-expects';
-import { APILogger } from '../utils/logger';
+import { test } from '../../utils/fixtures';
+import { expect } from '../../utils/custom-expects';
+import { APILogger } from '../../utils/logger';
 
 
 
