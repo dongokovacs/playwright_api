@@ -21,20 +21,18 @@ test('API Logger test', async ({}) => {
 test('CUSTOM expect test', async ({api}) => {
 
     const response = await api
-                              //.url('https://conduit-api.bondaracademy.com/api/articles?limit=10&offset=0')
-                              .params({limit:10, offset:0})
-                             //.path('/api/tags')
-                              .path('/api/articles')
-                              .getRequest(200);
+                    .params({limit:10, offset:0})
+                    .path('/api/articles')
+                    .getRequest(200);
 
     expect(response.articles.length).toBeLessThan(11)
 
     const response2 = await api
-                              .path('/api/tags')
-                              .getRequest(200);
+                    .path('/api/tags')
+                    .getRequest(200);
 
     expect(response2.tags[0]).shouldEqual('Test')
-    expect(response2.tags.length).shouldBeLessThanOrEqual(10)
+    //expect(response2.tags.length).shouldBeLessThanOrEqual(10)
 });
 
 

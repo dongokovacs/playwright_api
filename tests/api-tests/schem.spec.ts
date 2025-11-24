@@ -36,7 +36,7 @@ test('GET all articles', async ({ api }) => {
     const articlesResponse = await api
                             .path('/api/articles?limit=10&offset=0')
                             .getRequest(200);
-    await expect(articlesResponse).shouldMatchSchema('articles', 'GET_articles');
+    await expect(articlesResponse).shouldMatchSchema('articles', 'GET_articles',true);
   });
 
 test('Create and delete article', async ({api}) => {
